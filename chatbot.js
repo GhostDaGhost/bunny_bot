@@ -52,12 +52,50 @@ document.addEventListener("DOMContentLoaded", function() {
       }
       addMessageToChat("bot", response);
     }
+
+    function getResponse(){
+      const response=[
+        "I am sorry, I can't help with the question.Transfering you to a live assistant."
+      ];
+      return response[Math.floor(Math.random()*response.length)];
+    }
   
     async function handleSendMessage() {
-      const userInput = inputField.value.trim();
+      const userInput = inputField.value.trim().toLowerCase();
       if (userInput === "") return;
-  
+      
+      const predefinedOption1 = ['help','bunnies','tech','general'];
+      const predefinedOption2 = ['hi','hello','hey','how are you','thanks','thank you','bye','bye bye','goodbye'];
+
+      if (predefinedOption1.includes(userInput)){
+        addMessageToChat("user",userInput);
+        handleUserOption(userInput);
+      }
+      else if (predefinedOption2.includes(userInput)){
+        addMessageToChat("user",userInput);
+        if(userInput==='hi'||userInput==='hello'||userInput==='hey'){
+
+        addMessageToChat("bot","Hi,I am Bunny Bot! How can I assist you today?")
+        }
+        else if(userInput==='how are you'){
+          
+          addMessageToChat("bot","I am doing well! How can I assist you today?")
+        }
+        else if(userInput==='thanks'||userInput==='thank you'){
+          
+          addMessageToChat("bot","You are so welcome!")
+        }
+        else if(userInput==='bye'||userInput==='bye bye'||userInput==='goodbye'){
+          
+          addMessageToChat("bot","Goodbye,have a great day!")
+        }}
+
+      else{
       addMessageToChat("user", userInput);
+      addMessageToChat("bot",getResponse());
+    
+      }
+      
       inputField.value = "";
   
      
@@ -81,4 +119,3 @@ document.addEventListener("DOMContentLoaded", function() {
     ]);
   });
 
-  
