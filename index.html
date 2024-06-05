@@ -3,15 +3,27 @@
 <head>
     <title>Cozy Buns</title>
     <meta charset = "UTF-8">
-   
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 
-    <style type="text/css">
-    </style>
     <link href="css/index.css" rel="stylesheet" type="text/css">
+    <script src="chatbot.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+    <div id="chatbot">
+        <div id="chatbot-header">
+          <div>🐰 Cozy Buns Customer Support 🐰</div>
+          <div id="chatbot-minimize">
+            <img id="chatbot-minimize-icon" src="images/minimize-icon.png">
+          </div>
+        </div>
+        <div id="chatbot-messages"></div>
+        <div id="chatbot-options"></div>
+        <input type="text" id="chatbot-input" placeholder="Type a message...">
+        <button id="send-button">Send</button>
+      </div>
+
     <div class="bg">
     <header>
     </header>
@@ -55,29 +67,7 @@
             <nav class = "xmas_bunny">
                             <img src="images/bunnies/christmas_bunny2.webp" width = "350px" height = "250px" alt="xmas_bunny">
                
-        </section>    
-
-  
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="chat-container">
-        <div id="chatbox" class="chatbox">
-            <div class="message bot-message">Hello! How can I help you today?</div>
-        </div>
-        <input type="text" id="userInput" placeholder="Type a message..." autocomplete="off">
-        <button onclick="sendMessage()">Send</button>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html>
-
-        
+        </section>        
     </main>
     <footer>
             <nav class = "social_media">
