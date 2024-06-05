@@ -1,3 +1,9 @@
+const failedResponses = [
+  'Unfortunately, I cannot help you with that query. Would you like to ask about our menu or how many bunnies we have?',
+  'I\'m sorry but I cannot help you with that. Try asking about our menu or food!',
+  'I apologize but I\'m only a Bunny Bot :(. You may ask me about the menu and our food!'
+];
+
 document.addEventListener("DOMContentLoaded", function() {
     const inputField = document.getElementById("chatbot-input");
     const sendButton = document.getElementById("send-button");
@@ -7,7 +13,10 @@ document.addEventListener("DOMContentLoaded", function() {
     function addMessageToChat(role, text) {
       const messageElement = document.createElement("div");
       messageElement.classList.add("chatbot-message", role);
-      messageElement.textContent = text;
+
+      // Only the bot may pass HTML-component compatible messages.
+      messageElement[role === 'bot' ? 'innerHTML' : 'textContent'] = text;
+
       messagesContainer.appendChild(messageElement);
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
@@ -53,11 +62,15 @@ document.addEventListener("DOMContentLoaded", function() {
       addMessageToChat("bot", response);
     }
 
-    function getResponse(){
-      const response=[
-        "I am sorry, I can't help with the question.Transfering you to a live assistant."
-      ];
-      return response[Math.floor(Math.random()*response.length)];
+    function getResponse(userInput) {
+      if (userInput.includes('how many bunnies')) {
+        return 'We have about 12 bunnies!';
+      } else if (userInput.includes('menu')) {
+        return 'We have many beverages and food that can or cannot be shared with bunnies! Our most popular entry is the carrot cake! Here is a <a href="pages/cafemenu.html">link</a> to our menu.';
+      } else if (userInput.includes('food')) {
+        return 'Some of our food that can be shared with bunnies is Arugula Salad with Nuts and Vegan Cheese, Grilled Peach Salad with Yogurt Sauce and Cold Pumpkin Soup! See the rest of it <a href="pages/cafemenu.html">here</a>';
+      }
+      return failedResponses[Math.floor(Math.random() * failedResponses.length)];
     }
   
     async function handleSendMessage() {
@@ -65,40 +78,28 @@ document.addEventListener("DOMContentLoaded", function() {
       if (userInput === "") return;
       
       const predefinedOption1 = ['help','bunnies','tech','general'];
-      const predefinedOption2 = ['hi','hello','hey','how are you','thanks','thank you','bye','bye bye','goodbye'];
+      const predefinedOption2 = ['hi','hello','hey','how are you','thanks','thank you','bye','goodbye'];
 
       if (predefinedOption1.includes(userInput)){
         addMessageToChat("user",userInput);
         handleUserOption(userInput);
-      }
-      else if (predefinedOption2.includes(userInput)){
-        addMessageToChat("user",userInput);
-        if(userInput==='hi'||userInput==='hello'||userInput==='hey'){
-
-        addMessageToChat("bot","Hi,I am Bunny Bot! How can I assist you today?")
+      } else if (predefinedOption2.includes(userInput)){
+        addMessageToChat("user", userInput);
+        if (userInput === 'hi' || userInput === 'hello' || userInput==='hey' ) {
+          addMessageToChat("bot", "Hi, I am Bunny Bot! How can I assist you today?")
+        } else if (userInput === 'how are you') {
+          addMessageToChat("bot", "I am doing well! How can I assist you today?")
+        } else if(userInput === 'thanks' || userInput === 'thank you') {
+          addMessageToChat("bot", "You are so welcome!")
+        } else if( userInput === 'bye' || userInput === 'bye bye' || userInput === 'goodbye') {
+          addMessageToChat("bot", "Goodbye, have a great day!")
         }
-        else if(userInput==='how are you'){
-          
-          addMessageToChat("bot","I am doing well! How can I assist you today?")
-        }
-        else if(userInput==='thanks'||userInput==='thank you'){
-          
-          addMessageToChat("bot","You are so welcome!")
-        }
-        else if(userInput==='bye'||userInput==='bye bye'||userInput==='goodbye'){
-          
-          addMessageToChat("bot","Goodbye,have a great day!")
-        }}
-
-      else{
-      addMessageToChat("user", userInput);
-      addMessageToChat("bot",getResponse());
-    
+      } else {
+        addMessageToChat("user", userInput);
+        addMessageToChat("bot", getResponse(userInput));
       }
       
       inputField.value = "";
-  
-     
     }
   
     sendButton.addEventListener("click", handleSendMessage);
