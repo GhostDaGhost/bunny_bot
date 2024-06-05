@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const sendButton = document.getElementById("send-button");
     const messagesContainer = document.getElementById("chatbot-messages");
     const optionsContainer = document.getElementById("chatbot-options");
+    const minimizeButton = document.getElementById("chatbot-minimize");
+
+    let minimized = false;
   
     function addMessageToChat(role, text) {
       const messageElement = document.createElement("div");
@@ -73,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
       return failedResponses[Math.floor(Math.random() * failedResponses.length)];
     }
   
-    async function handleSendMessage() {
+    function handleSendMessage() {
       const userInput = inputField.value.trim().toLowerCase();
       if (userInput === "") return;
       
@@ -101,8 +104,19 @@ document.addEventListener("DOMContentLoaded", function() {
       
       inputField.value = "";
     }
+
+    function handleMinimization() {
+      minimized = !minimized;
+
+      messagesContainer.style.display = minimized ? 'none' : 'block';
+      optionsContainer.style.display = minimized ? 'none' : 'flex';
+  
+      inputField.style.display = minimized ? 'none' : 'block';
+      sendButton.style.display = minimized ? 'none' : 'block';
+    }
   
     sendButton.addEventListener("click", handleSendMessage);
+    minimizeButton.addEventListener('click', handleMinimization);
   
     inputField.addEventListener("keypress", async (event) => {
       if (event.key === "Enter") {

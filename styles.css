@@ -1,6 +1,6 @@
 #chatbot {
-    width: 300px;
-    height: 500px;
+    width: 350px;
+    max-height: 500px;
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -14,12 +14,14 @@
   }
   
   #chatbot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #883726;
     color: #fff;
     padding: 10px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    text-align: center;
   }
   
   #chatbot-messages {
@@ -88,3 +90,8 @@
     background-color: #883726;
   }
   
+  #chatbot-minimize-icon {
+    width: 30px;
+    height: 40px;
+    cursor: pointer;
+  }
