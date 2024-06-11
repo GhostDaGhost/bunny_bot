@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
           response = "For technical support, please describe your issue and our support team will assist you.";
           break;
         case 'general':
-          response = "For general inquiries, please contact us at info@example.com.";
+          response = "For general inquiries, please contact us at cozybuns@info.com";
           break;
         default:
           response = "I'm not sure how to help with that.";
